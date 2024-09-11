@@ -1,5 +1,11 @@
+import { Filter } from "../../components/shared";
+
 const Home = () => {
-  return <div>Home</div>;
+  return (
+    <div>
+      <Filter />
+    </div>
+  );
 };
 
 export default Home;
