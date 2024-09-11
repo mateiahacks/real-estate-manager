@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "FiraGO";
+  src: url("./assets/fonts/FiraGO-Medium.otf");
+}
+
+body {
+  font-family: "FiraGO";
+  color: #021526;
+}
