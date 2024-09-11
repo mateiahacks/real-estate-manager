@@ -3,10 +3,10 @@ import Header from "../components/shared/Header";
 
 const RootLayout = () => {
   return (
-    <div className="w-full flex-col">
+    <div className="flex flex-col w-full">
       <Header />
 
-      <section className="flex flex-1 h-full px-32">
+      <section className="flex flex-1 h-full md:px-28 py-10 px-8">
         <Outlet />
       </section>
     </div>
