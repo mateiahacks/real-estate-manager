@@ -5,11 +5,13 @@ import RegionDropdown from "./RegionDropdown";
 
 const Filter = () => {
   return (
-    <div className="flex gap-3 px-2 py-1 border border-gray-1 rounded-lg">
-      <RegionDropdown />
-      <PriceDropdown />
-      <AreaDropdown />
-      <QuantityDropdown />
+    <div className="flex flex-col gap-5 mb-3">
+      <div className="flex gap-3 px-1 py-1 border border-gray-1 rounded-lg">
+        <RegionDropdown />
+        <PriceDropdown />
+        <AreaDropdown />
+        <QuantityDropdown />
+      </div>
     </div>
   );
 };

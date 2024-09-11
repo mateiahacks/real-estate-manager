@@ -9,7 +9,8 @@ const FilterDropdownLabel = ({ text, isOpen }: FilterDropdownLabelProps) => {
   return (
     <div
       className={cn(
-        "flex items-center gap-2 px-3 py-1 rounded-md text-sm cursor-pointer hover:bg-gray-3"
+        "flex items-center gap-2 px-3 py-1 rounded-md text-sm cursor-pointer hover:bg-gray-3",
+        isOpen ? "bg-gray-3" : ""
       )}
     >
       <p>{text}</p>
