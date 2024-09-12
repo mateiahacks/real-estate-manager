@@ -1,11 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { Product } from "../../types";
+import { IProduct } from "../../types";
 import { errorMessage } from "../../lib/utils";
 
 import realEstateService from "./realEstateService";
 
 interface RealEstatesState {
-  items: Product[];
+  items: IProduct[];
   isLoading: boolean;
 }
 
