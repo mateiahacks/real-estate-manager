@@ -1,13 +1,18 @@
 import { useState } from "react";
-import { Button, Input, RadioButton, Textarea } from "../ui";
-import Dropdown from "../ui/Dropdown";
-import ImageUpload from "../ui/ImageUpload";
+import {
+  Button,
+  Dropdown,
+  ImageUpload,
+  Input,
+  RadioButton,
+  Textarea,
+} from "../ui";
 
 const RealEstateForm = () => {
   const [is_rental, set_is_rental] = useState<boolean>(false);
 
   return (
-    <form className="flex flex-col w-1/2 gap-16">
+    <form className="flex flex-col w-1/2 gap-14">
       <div className="form-block">
         <label className="text-md">გარიგების ტიპი</label>
         <div className="flex gap-24">
@@ -52,6 +57,14 @@ const RealEstateForm = () => {
         </div>
         <Textarea label="აღწერა *" rule="მინიმუმ ხუთი სიტყვა" />
         <ImageUpload label="ატვირთეთ ფოტო *" />
+      </div>
+
+      <div className="form-block">
+        <label>აგენტი</label>
+        <div className="flex gap-5 mb-12">
+          <Dropdown label="აირჩიე" />
+          <Dropdown className="invisible" />
+        </div>
       </div>
 
       <div className="flex flex-row-reverse gap-3 mb-10">
