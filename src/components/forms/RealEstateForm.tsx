@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button, Input, RadioButton, Textarea } from "../ui";
 import Dropdown from "../ui/Dropdown";
+import ImageUpload from "../ui/ImageUpload";
 
 const RealEstateForm = () => {
   const [is_rental, set_is_rental] = useState<boolean>(false);
@@ -50,6 +51,7 @@ const RealEstateForm = () => {
           <Input className="invisible" />
         </div>
         <Textarea label="აღწერა *" rule="მინიმუმ ხუთი სიტყვა" />
+        <ImageUpload label="ატვირთეთ ფოტო *" />
       </div>
 
       <div className="flex flex-row-reverse gap-3 mb-10">
