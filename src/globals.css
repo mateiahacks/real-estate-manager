@@ -16,7 +16,8 @@ body {
   color: #021526;
 }
 
-.radio-label {
+.radio-label,
+input {
   font-family: "FiraGOLight";
 }
 
@@ -26,6 +27,6 @@ body {
   }
 
   .form-block {
-    @apply flex flex-col gap-3;
+    @apply flex flex-col gap-4;
   }
 }

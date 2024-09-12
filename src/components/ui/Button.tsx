@@ -13,6 +13,10 @@ const buttonVariants = cva(
       },
       size: { sm: "", lg: "h-9" },
     },
+    defaultVariants: {
+      variant: "primary",
+      size: "lg",
+    },
   }
 );
 
