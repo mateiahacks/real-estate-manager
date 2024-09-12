@@ -4,11 +4,10 @@
 
 @font-face {
   font-family: "FiraGO";
-  src: url("./assets/fonts/FiraGO-Light.otf");
+  src: url("./assets/fonts/FiraGO-Medium.otf");
 }
 
 body {
   font-family: "FiraGO";
-  font-weight: 600;
   color: #021526;
 }

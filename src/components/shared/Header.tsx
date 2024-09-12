@@ -4,7 +4,7 @@ const Header = () => {
       <img
         src="/assets/images/logo.png"
         alt="logo"
-        className="object-center object-contain w-28"
+        className="object-center object-contain w-28 cursor-pointer"
       />
     </header>
   );
