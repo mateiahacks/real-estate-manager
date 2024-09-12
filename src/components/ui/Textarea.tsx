@@ -2,9 +2,10 @@ import { cn } from "../../lib/utils";
 
 export interface TextareaProps extends React.HTMLProps<HTMLTextAreaElement> {
   label?: string;
+  rule?: string;
 }
 
-const Textarea = ({ label, className, ...props }: TextareaProps) => {
+const Textarea = ({ label, className, rule, ...props }: TextareaProps) => {
   return (
     <div>
       <label className="text-xs">{label}</label>
@@ -15,6 +16,10 @@ const Textarea = ({ label, className, ...props }: TextareaProps) => {
           className
         )}
       />
+      <div className="flex items-center gap-1 mt-1">
+        <img src="/assets/icons/tick.png" alt="tick" className="w-2 h-2" />
+        <p className="rule text-xs font-bold">{rule}</p>
+      </div>
     </div>
   );
 };

@@ -3,12 +3,13 @@ import { cn } from "../../lib/utils";
 export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
+  rule?: string;
 }
 
-const Input = ({ type, className, label, ...props }: InputProps) => {
+const Input = ({ type, className, rule, label, ...props }: InputProps) => {
   return (
-    <div className="h-10 w-full">
-      <label className="text-xs">{label}</label>
+    <div className={cn("h-10 w-full", className)}>
+      {label && <label className="text-xs">{label}</label>}
       <input
         type={type}
         className={cn(
@@ -17,6 +18,12 @@ const Input = ({ type, className, label, ...props }: InputProps) => {
         )}
         {...props}
       />
+      {rule && (
+        <div className="flex items-center gap-1 mt-1">
+          <img src="/assets/icons/tick.png" alt="tick" className="w-2 h-2" />
+          <p className="rule text-xs font-bold">{rule}</p>
+        </div>
+      )}
     </div>
   );
 };

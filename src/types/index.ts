@@ -11,3 +11,8 @@ export interface IRealEstate {
   is_rental: boolean;
   agent_id: number;
 }
+
+export interface IDropdownItem {
+  id: number;
+  name: string;
+}
