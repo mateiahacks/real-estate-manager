@@ -26,11 +26,20 @@ interface ButtonProps
   asChild?: boolean;
 }
 
-const Button = ({ children, className, size, variant }: ButtonProps) => {
+const Button = ({
+  children,
+  className,
+  size,
+  variant,
+  ...props
+}: ButtonProps) => {
   return (
-    <div className={cn(buttonVariants({ variant, size, className }))}>
+    <button
+      className={cn(buttonVariants({ variant, size, className }))}
+      {...props}
+    >
       {children}
-    </div>
+    </button>
   );
 };
 
