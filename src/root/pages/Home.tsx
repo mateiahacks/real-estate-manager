@@ -1,4 +1,5 @@
 import { Filter } from "../../components/shared";
+import RealEstates from "../../components/shared/RealEstates";
 import { Button } from "../../components/ui";
 
 const Home = () => {
@@ -17,6 +18,7 @@ const Home = () => {
           </Button>
         </div>
       </div>
+      <RealEstates />
     </div>
   );
 };
