@@ -1,20 +1,20 @@
 import { Button, ImageUpload, Input } from "../ui";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { AgentValidation } from "../../lib/validation";
+import * as z from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
-interface FormFields {
-  name: string;
-  surname: string;
-  email: string;
-  phone: string;
-  avatar: string;
-}
+type FormFields = z.infer<typeof AgentValidation>;
 
 interface AgentFormProps {
   toggleIsOpen: () => void;
 }
 
 const AgentForm = ({ toggleIsOpen }: AgentFormProps) => {
-  const methods = useForm<FormFields>();
+  const methods = useForm<FormFields>({
+    resolver: zodResolver(AgentValidation),
+    mode: "all",
+  });
   const { handleSubmit } = methods;
 
   const onSubmit: SubmitHandler<FormFields> = (data) => {

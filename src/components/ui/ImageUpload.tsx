@@ -72,6 +72,7 @@ const ImageUpload = ({
         id={name}
         className="invisible"
         onChange={onChange}
+        accept="image/*"
       />
     </div>
   );

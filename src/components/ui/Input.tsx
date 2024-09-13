@@ -17,6 +17,10 @@ const Input = ({
   ...props
 }: InputProps) => {
   const form = useFormContext();
+  const {
+    formState: { errors },
+    getValues,
+  } = form;
 
   return (
     <div className={cn("h-10 w-full", className)}>
@@ -24,16 +28,40 @@ const Input = ({
       <input
         type={type}
         className={cn(
-          "flex h-10 w-full mt-1 rounded-md px-3 py-2 text-xs border border-gray-2",
+          "flex h-10 w-full mt-1 rounded-md px-3 py-2 text-xs border",
+          errors[name] ? "border-primary" : "border-gray-2",
           className
         )}
         {...form?.register(name)}
         {...props}
       />
-      {rule && (
+      {rule && !errors[name] && (
         <div className="flex items-center gap-1 mt-1">
-          <img src="/assets/icons/tick.png" alt="tick" className="w-2 h-2" />
-          <p className="rule text-xs font-bold">{rule}</p>
+          <img
+            src={`/assets/icons/tick${getValues(name) ? "-green" : ""}.png`}
+            alt="tick"
+            className="w-2 h-2"
+          />
+          <p
+            className={cn(
+              "rule text-xs font-bold",
+              getValues(name) ? "text-green" : ""
+            )}
+          >
+            {rule}
+          </p>
+        </div>
+      )}
+      {errors[name] && (
+        <div className="flex items-center gap-1 mt-1">
+          <img
+            src="/assets/icons/tick-red.png"
+            alt="tick"
+            className="w-2 h-2"
+          />
+          <p className="rule text-xs font-bold text-primary">
+            {errors[name]?.message as string}
+          </p>
         </div>
       )}
     </div>
