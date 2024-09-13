@@ -1,9 +1,7 @@
 import * as z from "zod";
 import { ERROR_MESSAGE } from "../constants";
 
-const phoneRegex = new RegExp(
-  /^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/
-);
+const numberRegex = new RegExp(/^\d+$/);
 
 export const AgentValidation = z.object({
   name: z.string().min(2, { message: ERROR_MESSAGE.VALIDATION }),
@@ -12,6 +10,20 @@ export const AgentValidation = z.object({
     .string()
     .email(ERROR_MESSAGE.VALIDATION)
     .regex(/@redberry\.ge$/, ERROR_MESSAGE.VALIDATION),
-  phone: z.string().regex(phoneRegex, ERROR_MESSAGE.VALIDATION),
-  avatar: z.string(),
+  phone: z.string().regex(numberRegex, ERROR_MESSAGE.VALIDATION),
+  avatar: z.any(),
+});
+
+export const RealEstateValidation = z.object({
+  address: z.string().min(2, { message: ERROR_MESSAGE.VALIDATION }),
+  zip_code: z.string().regex(numberRegex, ERROR_MESSAGE.VALIDATION),
+  price: z.string().regex(numberRegex, ERROR_MESSAGE.VALIDATION),
+  area: z.string().regex(numberRegex, ERROR_MESSAGE.VALIDATION),
+  bedrooms: z.string().regex(numberRegex, ERROR_MESSAGE.VALIDATION),
+  description: z
+    .string()
+    .refine((value) => value.trim().split(/\s+/).filter(Boolean).length >= 5, {
+      message: ERROR_MESSAGE.VALIDATION,
+    }),
+  image: z.any(),
 });
