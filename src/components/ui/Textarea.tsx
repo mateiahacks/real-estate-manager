@@ -33,7 +33,11 @@ const Textarea = ({
       />
       {rule && !errors[name] && (
         <div className="flex items-center gap-1 mt-1">
-          <img src="/assets/icons/tick.png" alt="tick" className="w-2 h-2" />
+          <img
+            src={`/assets/icons/tick${getValues(name) ? "-green" : ""}.png`}
+            alt="tick"
+            className="w-2 h-2"
+          />
           <p
             className={cn(
               "rule text-xs font-bold",
