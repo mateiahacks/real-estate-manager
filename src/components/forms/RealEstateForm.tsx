@@ -7,6 +7,7 @@ import {
   RadioButton,
   Textarea,
 } from "../ui";
+import { Link } from "react-router-dom";
 
 const RealEstateForm = () => {
   const [is_rental, set_is_rental] = useState<boolean>(false);
@@ -32,8 +33,18 @@ const RealEstateForm = () => {
       <div className="form-block">
         <label>მდებარეობა</label>
         <div className="flex gap-5 mb-12">
-          <Input label="მისამართი *" type="text" rule="მინიმუმ ორი სიმბოლო" />
-          <Input label="საფოსტო ინდექსი *" type="text" rule="მხოლოდ რიცხვები" />
+          <Input
+            name="address"
+            label="მისამართი *"
+            type="text"
+            rule="მინიმუმ ორი სიმბოლო"
+          />
+          <Input
+            name="zip_code"
+            label="საფოსტო ინდექსი *"
+            type="text"
+            rule="მხოლოდ რიცხვები"
+          />
         </div>
         <div className="flex gap-5 mb-12">
           <Dropdown label="რეგიონი" />
@@ -44,19 +55,25 @@ const RealEstateForm = () => {
       <div className="form-block">
         <label>ბინის დეტალები</label>
         <div className="flex gap-5 mb-12">
-          <Input label="ფასი" type="text" rule="მხოლოდ რიცხვები" />
-          <Input label="ფართობი" type="text" rule="მხოლოდ რიცხვები" />
+          <Input name="price" label="ფასი" type="text" rule="მხოლოდ რიცხვები" />
+          <Input
+            name="area"
+            label="ფართობი"
+            type="text"
+            rule="მხოლოდ რიცხვები"
+          />
         </div>
         <div className="flex gap-5 mb-12">
           <Input
+            name="bedrooms"
             label="საძინებლების რაოდენობა *"
             type="text"
             rule="მხოლოდ რიცხვები"
           />
-          <Input className="invisible" />
+          <Input name="mock" className="invisible" />
         </div>
         <Textarea label="აღწერა *" rule="მინიმუმ ხუთი სიტყვა" />
-        <ImageUpload label="ატვირთეთ ფოტო *" />
+        <ImageUpload name="image" label="ატვირთეთ ფოტო *" />
       </div>
 
       <div className="form-block">
@@ -71,7 +88,11 @@ const RealEstateForm = () => {
         <Button variant={"primary"} type="submit">
           დაამატე ლისტინგი
         </Button>
-        <Button variant={"secondary"}>გაუქმება</Button>
+        <Link to={"/"}>
+          <Button variant={"secondary"} type="button">
+            გაუქმება
+          </Button>
+        </Link>
       </div>
     </form>
   );

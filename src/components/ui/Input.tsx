@@ -1,12 +1,23 @@
+import { useFormContext } from "react-hook-form";
 import { cn } from "../../lib/utils";
 
 export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   rule?: string;
+  name: string;
 }
 
-const Input = ({ type, className, rule, label, ...props }: InputProps) => {
+const Input = ({
+  type,
+  className,
+  rule,
+  label,
+  name,
+  ...props
+}: InputProps) => {
+  const form = useFormContext();
+
   return (
     <div className={cn("h-10 w-full", className)}>
       {label && <label className="text-xs">{label}</label>}
@@ -16,6 +27,7 @@ const Input = ({ type, className, rule, label, ...props }: InputProps) => {
           "flex h-10 w-full mt-1 rounded-md px-3 py-2 text-xs border border-gray-2",
           className
         )}
+        {...form?.register(name)}
         {...props}
       />
       {rule && (

@@ -8,8 +8,6 @@ import AgentModal from "../../components/shared/AgentModal";
 const Home = () => {
   const [showAgentModal, toggleShowAgentModal] = useToggle(false);
 
-  console.log(showAgentModal);
-
   return (
     <div className="flex flex-col gap-3 w-full">
       <div className="w-full flex flex-wrap justify-between items-center">

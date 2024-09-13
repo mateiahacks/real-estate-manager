@@ -12,6 +12,21 @@ export interface IRealEstate {
   agent_id: number;
 }
 
+export interface IAgentSendData {
+  name: string;
+  surname: string;
+  email: string;
+  phone: string;
+  avatar: string;
+}
+
+export interface IAgent {
+  id: number;
+  name: string;
+  surname: string;
+  avatar: string;
+}
+
 export interface IDropdownItem {
   id: number;
   name: string;

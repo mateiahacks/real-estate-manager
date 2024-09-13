@@ -19,7 +19,7 @@ const AgentModal = ({ isOpen, toggleIsOpen }: ModalProps) => {
       onRequestClose={toggleIsOpen}
     >
       <h1 className="text-xl mb-10">აგენტის დამატება</h1>
-      <AgentForm />
+      <AgentForm toggleIsOpen={toggleIsOpen} />
     </Modal>
   );
 };
