@@ -20,11 +20,13 @@ export interface IAgentSendData {
   avatar: string;
 }
 
-export interface IAgent {
-  id: number;
-  name: string;
+export interface IAgent extends IDropdownItem {
   surname: string;
   avatar: string;
+}
+
+export interface ICity extends IDropdownItem {
+  region_id: number;
 }
 
 export interface IDropdownItem {

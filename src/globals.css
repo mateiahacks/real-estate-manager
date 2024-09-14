@@ -35,9 +35,15 @@ body {
   z-index: 2;
 }
 
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
 .radio-label,
 input,
-.rule {
+.rule,
+.dropdown-item {
   font-family: "FiraGOLight";
 }
 
@@ -48,5 +54,9 @@ input,
 
   .form-block {
     @apply flex flex-col gap-4;
+  }
+
+  .dropdown-data {
+    @apply absolute bg-white top-20 w-full border border-gray-2 max-h-52 overflow-auto -mt-3 border-t-0 rounded-b-md no-scrollbar;
   }
 }

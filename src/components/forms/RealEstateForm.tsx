@@ -12,6 +12,10 @@ import { z } from "zod";
 import { RealEstateValidation } from "../../lib/validation";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import RegionDropdown from "../shared/RegionDropdown";
+import { IAgent, ICity, IDropdownItem } from "../../types";
+import CityDropdown from "../shared/CityDropdown";
+import AgentDropdown from "../shared/AgentDropdown";
 
 type FormFields = z.infer<typeof RealEstateValidation>;
 
@@ -19,6 +23,9 @@ interface RealEstateFormProps {}
 
 const RealEstateForm = ({}: RealEstateFormProps) => {
   const [is_rental, set_is_rental] = useState<boolean>(false);
+  const [region, setRegion] = useState<IDropdownItem | null>(null);
+  const [city, setCity] = useState<ICity | null>(null);
+  const [agent, setAgent] = useState<IAgent | null>(null);
 
   const methods = useForm<FormFields>({
     resolver: zodResolver(RealEstateValidation),
@@ -70,8 +77,9 @@ const RealEstateForm = ({}: RealEstateFormProps) => {
             />
           </div>
           <div className="flex gap-5 mb-12">
-            <Dropdown label="რეგიონი" />
-            <Dropdown label="ქალაქი" />
+            {/* <Dropdown label="რეგიონი" /> */}
+            <RegionDropdown region={region} setRegion={setRegion} />
+            <CityDropdown city={city} setCity={setCity} region={region} />
           </div>
         </div>
 
@@ -111,7 +119,7 @@ const RealEstateForm = ({}: RealEstateFormProps) => {
         <div className="form-block">
           <label>აგენტი</label>
           <div className="flex gap-5 mb-12">
-            <Dropdown label="აირჩიე" />
+            <AgentDropdown agent={agent} setAgent={setAgent} />
             <Dropdown className="invisible" />
           </div>
         </div>
