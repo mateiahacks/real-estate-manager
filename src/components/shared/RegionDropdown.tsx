@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction, useRef } from "react";
 import { useToggle } from "../../hooks/useToggle";
 import { useGetRegions } from "../../lib/react-query/queries";
-import { IDropdownItem } from "../../types";
+import { ICity, IDropdownItem } from "../../types";
 import { Dropdown } from "../ui";
 import DropdownItem from "./DropdownItem";
 import useOutsideClick from "../../hooks/useOutsideClick";
@@ -9,9 +9,14 @@ import useOutsideClick from "../../hooks/useOutsideClick";
 interface RegionDropdownProps {
   region: IDropdownItem | null;
   setRegion: Dispatch<SetStateAction<IDropdownItem | null>>;
+  setCity: Dispatch<SetStateAction<ICity | null>>;
 }
 
-const RegionDropdown = ({ region, setRegion }: RegionDropdownProps) => {
+const RegionDropdown = ({
+  region,
+  setRegion,
+  setCity,
+}: RegionDropdownProps) => {
   const { data: regions, isFetching } = useGetRegions();
   const [isOpen, toggleIsOpen] = useToggle(false);
   const ref = useRef(null);
@@ -19,6 +24,7 @@ const RegionDropdown = ({ region, setRegion }: RegionDropdownProps) => {
 
   const onSelect = (region: IDropdownItem) => {
     setRegion(region);
+    setCity(null);
     toggleIsOpen();
   };
 

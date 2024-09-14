@@ -78,7 +78,11 @@ const RealEstateForm = ({}: RealEstateFormProps) => {
           </div>
           <div className="flex gap-5 mb-12">
             {/* <Dropdown label="რეგიონი" /> */}
-            <RegionDropdown region={region} setRegion={setRegion} />
+            <RegionDropdown
+              region={region}
+              setRegion={setRegion}
+              setCity={setCity}
+            />
             <CityDropdown city={city} setCity={setCity} region={region} />
           </div>
         </div>
