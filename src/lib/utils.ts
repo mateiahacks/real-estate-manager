@@ -12,3 +12,9 @@ export function errorMessage(error: any) {
     error.toString()
   );
 }
+
+export function formData(object: any) {
+  const data = new FormData();
+  Object.keys(object).forEach((key) => data.append(key, object[key]));
+  return data;
+}

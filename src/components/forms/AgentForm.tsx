@@ -3,6 +3,9 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { AgentValidation } from "../../lib/validation";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useCreateAgent } from "../../lib/react-query/queries";
+import { formData } from "../../lib/utils";
+import Loader from "../shared/Loader";
 
 type FormFields = z.infer<typeof AgentValidation>;
 
@@ -17,8 +20,15 @@ const AgentForm = ({ toggleIsOpen }: AgentFormProps) => {
   });
   const { handleSubmit } = methods;
 
-  const onSubmit: SubmitHandler<FormFields> = (data) => {
-    console.log(data);
+  const { mutateAsync: createAgent, isPending: isCreating } = useCreateAgent();
+
+  const onSubmit: SubmitHandler<FormFields> = async (data: FormFields) => {
+    try {
+      await createAgent(formData({ ...data, avatar: data.avatar[0] }));
+      toggleIsOpen();
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -57,7 +67,11 @@ const AgentForm = ({ toggleIsOpen }: AgentFormProps) => {
         </div>
         <div className="flex flex-row-reverse gap-3 mt-5">
           <Button variant={"primary"} type="submit">
-            დაამატე აგენტი
+            {isCreating ? (
+              <Loader className="text-primary fill-white" />
+            ) : (
+              "დაამატე აგენტი"
+            )}
           </Button>
           <Button variant={"secondary"} onClick={toggleIsOpen} type="button">
             გაუქმება

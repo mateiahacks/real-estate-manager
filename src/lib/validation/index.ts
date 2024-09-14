@@ -2,6 +2,7 @@ import * as z from "zod";
 import { ERROR_MESSAGE } from "../constants";
 
 const numberRegex = new RegExp(/^\d+$/);
+const phoneRegex = new RegExp(/^5\d{8}$/);
 
 export const AgentValidation = z.object({
   name: z.string().min(2, { message: ERROR_MESSAGE.VALIDATION }),
@@ -10,7 +11,7 @@ export const AgentValidation = z.object({
     .string()
     .email(ERROR_MESSAGE.VALIDATION)
     .regex(/@redberry\.ge$/, ERROR_MESSAGE.VALIDATION),
-  phone: z.string().regex(numberRegex, ERROR_MESSAGE.VALIDATION),
+  phone: z.string().regex(phoneRegex, ERROR_MESSAGE.VALIDATION),
   avatar: z.any(),
 });
 
