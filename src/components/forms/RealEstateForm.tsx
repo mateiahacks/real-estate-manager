@@ -16,6 +16,9 @@ import RegionDropdown from "../shared/RegionDropdown";
 import { IAgent, ICity, IDropdownItem } from "../../types";
 import CityDropdown from "../shared/CityDropdown";
 import AgentDropdown from "../shared/AgentDropdown";
+import Loader from "../shared/Loader";
+import { useCreateRealEstate } from "../../lib/react-query/queries";
+import { formData } from "../../lib/utils";
 
 type FormFields = z.infer<typeof RealEstateValidation>;
 
@@ -34,8 +37,23 @@ const RealEstateForm = ({}: RealEstateFormProps) => {
 
   const { handleSubmit } = methods;
 
-  const onSubmit: SubmitHandler<FormFields> = (data) => {
-    console.log(data);
+  const { mutateAsync: createRealEstate, isPending: isCreating } =
+    useCreateRealEstate();
+
+  const onSubmit: SubmitHandler<FormFields> = async (data: FormFields) => {
+    try {
+      await createRealEstate(
+        formData({
+          ...data,
+          is_rental: is_rental,
+          region_id: region?.id,
+          city_id: city?.id,
+          agent_id: agent?.id,
+        })
+      );
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -130,7 +148,11 @@ const RealEstateForm = ({}: RealEstateFormProps) => {
 
         <div className="flex flex-row-reverse gap-3 mb-10">
           <Button variant={"primary"} type="submit">
-            დაამატე ლისტინგი
+            {isCreating ? (
+              <Loader className="text-primary fill-white" />
+            ) : (
+              "დაამატე ლისტინგი"
+            )}
           </Button>
           <Link to={"/"}>
             <Button variant={"secondary"} type="button">

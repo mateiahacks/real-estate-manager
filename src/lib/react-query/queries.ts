@@ -8,6 +8,13 @@ export const useCreateAgent = () => {
   });
 };
 
+export const useCreateRealEstate = () => {
+  return useMutation({
+    mutationFn: (realEstate: FormData) =>
+      axiosClient.post("/real-estates", realEstate),
+  });
+};
+
 export const useGetAgents = () => {
   return useQuery({
     queryKey: [QUERY_KEYS.GET_AGENTS],

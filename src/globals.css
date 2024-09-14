@@ -57,6 +57,6 @@ input,
   }
 
   .dropdown-data {
-    @apply absolute bg-white top-20 w-full border border-gray-2 max-h-52 overflow-auto -mt-3 border-t-0 rounded-b-md no-scrollbar;
+    @apply absolute bg-white top-20 w-full border border-gray-2 max-h-52 overflow-auto -mt-3 border-t-0 rounded-b-md no-scrollbar z-10;
   }
 }
