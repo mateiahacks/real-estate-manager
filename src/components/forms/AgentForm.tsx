@@ -23,6 +23,9 @@ const AgentForm = ({ toggleIsOpen }: AgentFormProps) => {
   const { mutateAsync: createAgent, isPending: isCreating } = useCreateAgent();
 
   const onSubmit: SubmitHandler<FormFields> = async (data: FormFields) => {
+    if (data.avatar.length === 0) {
+      return; // check for image
+    }
     try {
       await createAgent(formData({ ...data, avatar: data.avatar[0] }));
       toggleIsOpen();

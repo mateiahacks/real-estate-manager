@@ -17,6 +17,10 @@ const ImageUpload = ({
   const form = useFormContext();
   const [file, setFile] = useState(null);
 
+  const {
+    formState: { isSubmitted },
+  } = form;
+
   const onChange = (e: any) => {
     form.register(name).onChange(e);
     setFile(e.target.files[0]);
@@ -40,6 +44,7 @@ const ImageUpload = ({
         className={cn(
           "flex items-center justify-center h-32 w-full mt-1 rounded-md px-3 py-2 text-xs",
           "border-gray-2 border-dashed border-2 resize-none cursor-pointer",
+          !file && isSubmitted ? "border-primary" : "border-gray-2",
           className
         )}
       >

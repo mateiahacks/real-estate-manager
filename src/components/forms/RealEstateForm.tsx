@@ -7,7 +7,7 @@ import {
   RadioButton,
   Textarea,
 } from "../ui";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { z } from "zod";
 import { RealEstateValidation } from "../../lib/validation";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
@@ -37,20 +37,27 @@ const RealEstateForm = ({}: RealEstateFormProps) => {
 
   const { handleSubmit } = methods;
 
+  const navigate = useNavigate();
+
   const { mutateAsync: createRealEstate, isPending: isCreating } =
     useCreateRealEstate();
 
   const onSubmit: SubmitHandler<FormFields> = async (data: FormFields) => {
+    if (!region || !city || !agent || data.image.length === 0) {
+      return; // check for dropdowns and image
+    }
     try {
       await createRealEstate(
         formData({
           ...data,
-          is_rental: is_rental,
+          is_rental: is_rental ? 1 : 0,
           region_id: region?.id,
           city_id: city?.id,
           agent_id: agent?.id,
+          image: data.image[0],
         })
       );
+      navigate("/");
     } catch (error) {
       console.error(error);
     }
