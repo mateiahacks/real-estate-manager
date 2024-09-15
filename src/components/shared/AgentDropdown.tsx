@@ -9,9 +9,14 @@ import { IAgent } from "../../types";
 interface AgentDropdownProps {
   agent: IAgent | null;
   setAgent: Dispatch<SetStateAction<IAgent | null>>;
+  toggleShowAgentModal: () => void;
 }
 
-const AgentDropdown = ({ agent, setAgent }: AgentDropdownProps) => {
+const AgentDropdown = ({
+  agent,
+  setAgent,
+  toggleShowAgentModal,
+}: AgentDropdownProps) => {
   const { data: agents, isFetching } = useGetAgents();
   const [isOpen, toggleIsOpen] = useToggle(false);
   const ref = useRef(null);
@@ -22,11 +27,23 @@ const AgentDropdown = ({ agent, setAgent }: AgentDropdownProps) => {
     toggleIsOpen();
   };
 
+  const onAddAgent = () => {
+    toggleShowAgentModal();
+    toggleIsOpen();
+  };
+
   return (
     <div className="w-full relative">
       <Dropdown label="აირჩიე" selected={agent} onClick={toggleIsOpen} />
       {!isFetching && isOpen && (
         <div className="dropdown-data" ref={ref}>
+          <DropdownItem
+            className="flex items-center gap-3 px-3 py-2"
+            onClick={onAddAgent}
+          >
+            <img src="/assets/icons/plus-circle.png" alt="plus-circle" />
+            <p>დაამატე აგენტი</p>
+          </DropdownItem>
           {agents.map((agent: IAgent) => (
             <DropdownItem
               onClick={() =>

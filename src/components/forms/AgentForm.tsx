@@ -6,6 +6,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useCreateAgent } from "../../lib/react-query/queries";
 import { formData } from "../../lib/utils";
 import Loader from "../shared/Loader";
+import { useQueryClient } from "@tanstack/react-query";
+import { QUERY_KEYS } from "../../lib/react-query/queryKeys";
 
 type FormFields = z.infer<typeof AgentValidation>;
 
@@ -18,6 +20,7 @@ const AgentForm = ({ toggleIsOpen }: AgentFormProps) => {
     resolver: zodResolver(AgentValidation),
     mode: "all",
   });
+  const queryClient = useQueryClient();
   const { handleSubmit } = methods;
 
   const { mutateAsync: createAgent, isPending: isCreating } = useCreateAgent();
@@ -29,6 +32,7 @@ const AgentForm = ({ toggleIsOpen }: AgentFormProps) => {
     try {
       await createAgent(formData({ ...data, avatar: data.avatar[0] }));
       toggleIsOpen();
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.GET_AGENTS] }); // invalidate agents
     } catch (error) {
       console.error(error);
     }

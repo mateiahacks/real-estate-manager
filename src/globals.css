@@ -18,7 +18,7 @@ body {
 
 .modal-overlay {
   background-color: rgba(0, 0, 0, 0.4);
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -32,7 +32,7 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: white;
-  z-index: 2;
+  z-index: 20;
 }
 
 .no-scrollbar {
