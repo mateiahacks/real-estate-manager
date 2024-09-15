@@ -9,6 +9,7 @@ export default {
         "gray-1": "#DBDBDB",
         "gray-2": "#808A93",
         "gray-3": "#F3F3F3",
+        "transparent-black": "#02152680",
         green: "#45A849",
       },
     },

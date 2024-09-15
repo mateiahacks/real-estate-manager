@@ -43,7 +43,8 @@ body {
 .radio-label,
 input,
 .rule,
-.dropdown-item {
+.dropdown-item,
+.fira-go-light {
   font-family: "FiraGOLight";
 }
 

@@ -3,6 +3,7 @@ import { ERROR_MESSAGE } from "../constants";
 
 const numberRegex = new RegExp(/^\d+$/);
 const phoneRegex = new RegExp(/^5\d{8}$/);
+const floatRegex = new RegExp(/^\d+(\.\d+)?$/);
 
 export const AgentValidation = z.object({
   name: z.string().min(2, { message: ERROR_MESSAGE.VALIDATION }),
@@ -19,7 +20,7 @@ export const RealEstateValidation = z.object({
   address: z.string().min(2, { message: ERROR_MESSAGE.VALIDATION }),
   zip_code: z.string().regex(numberRegex, ERROR_MESSAGE.VALIDATION),
   price: z.string().regex(numberRegex, ERROR_MESSAGE.VALIDATION),
-  area: z.string().regex(numberRegex, ERROR_MESSAGE.VALIDATION),
+  area: z.string().regex(floatRegex, ERROR_MESSAGE.VALIDATION),
   bedrooms: z.string().regex(numberRegex, ERROR_MESSAGE.VALIDATION),
   description: z
     .string()
