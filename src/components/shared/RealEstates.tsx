@@ -8,14 +8,15 @@ const RealEstates = () => {
   );
 
   return (
-    <div className="flex flex-wrap gap-6 mt-5">
+    <div className="flex flex-wrap gap-8 mt-5">
       {!isLoading && items.length === 0 && (
         <h3 className="text-gray-2 font-extralight m-3 mt-8">
           აღნიშნული მონაცემებით განცხადება არ იძებნება
         </h3>
       )}
       {isLoading && <h1 className="text-xl">Loading...</h1>}
-      {!isLoading && items.map((card) => <RealEstateCard card={card} />)}
+      {!isLoading &&
+        items.map((card) => <RealEstateCard card={card} key={card.id} />)}
     </div>
   );
 };

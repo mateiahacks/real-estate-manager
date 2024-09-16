@@ -6,7 +6,7 @@ interface RealEstateCardProps {
 
 const RealEstateCard = ({ card }: RealEstateCardProps) => {
   return (
-    <div className="w-72 rounded-xl shadow-md cursor-pointer border border-gray-1">
+    <div className="w-1/5 rounded-xl shadow-md cursor-pointer border border-gray-1">
       <div className="w-full relative">
         <div className="absolute top-4 left-4 px-2 py-1 rounded-2xl bg-transparent-black">
           <p className="text-white text-xs fira-go-light font-bold">
