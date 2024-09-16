@@ -57,11 +57,7 @@ const ChooseRegions = ({ regions, toggleIsOpen }: ChooseRegionsProps) => {
         ))}
       </div>
       <div className="w-full flex flex-row-reverse">
-        <Button
-          onClick={filter}
-          size={"sm"}
-          className="fira-go-light font-bold mr-2"
-        >
+        <Button onClick={filter} size={"sm"} className="mr-2">
           არჩევა
         </Button>
       </div>

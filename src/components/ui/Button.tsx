@@ -11,7 +11,7 @@ const buttonVariants = cva(
         secondary:
           "border p-4 border-primary text-primary hover:bg-primary hover:text-white",
       },
-      size: { sm: "h-7 p-3 text flex", lg: "h-9" },
+      size: { sm: "h-7 p-3 text flex fira-go-light font-bold", lg: "h-9" },
     },
     defaultVariants: {
       variant: "primary",
