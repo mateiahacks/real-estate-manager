@@ -4,6 +4,7 @@ import { IDropdownItem } from "../../../types";
 import Checkbox from "../../ui/Checkbox";
 import useOutsideClick from "../../../hooks/useOutsideClick";
 import { Button } from "../../ui";
+import { useRealEstateFilter } from "../../../hooks/useRealEstateFilter";
 
 interface ChooseRegionsProps {
   regions: IDropdownItem[];
@@ -15,6 +16,12 @@ const ChooseRegions = ({ regions, toggleIsOpen }: ChooseRegionsProps) => {
   useOutsideClick(ref, toggleIsOpen);
 
   const [checkedRegions, setCheckedRegions] = useState<IDropdownItem[]>([]);
+  const { setFilters } = useRealEstateFilter();
+
+  const filter = () => {
+    setFilters({ regions: checkedRegions.map((r) => r.name) });
+    toggleIsOpen();
+  };
 
   const checkRegion = (region: IDropdownItem) => {
     setCheckedRegions((prevState: IDropdownItem[]) => {
@@ -50,7 +57,11 @@ const ChooseRegions = ({ regions, toggleIsOpen }: ChooseRegionsProps) => {
         ))}
       </div>
       <div className="w-full flex flex-row-reverse">
-        <Button size={"sm"} className="fira-go-light font-bold mr-2">
+        <Button
+          onClick={filter}
+          size={"sm"}
+          className="fira-go-light font-bold mr-2"
+        >
           არჩევა
         </Button>
       </div>

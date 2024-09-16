@@ -10,6 +10,7 @@ export default {
         "gray-2": "#808A93",
         "gray-3": "#F3F3F3",
         "transparent-black": "#02152680",
+        "text-color": "#021526CC",
         green: "#45A849",
       },
     },

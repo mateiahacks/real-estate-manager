@@ -1,22 +1,35 @@
-import { useSelector } from "react-redux";
-import { RootState } from "../../state/store";
 import RealEstateCard from "./real-estate/RealEstateCard";
+import { useRealEstateFilter } from "../../hooks/useRealEstateFilter";
+import { useGetRealEstates } from "../../lib/react-query/queries";
+import { IRealEstate } from "../../types";
+import { useMemo } from "react";
 
 const RealEstates = () => {
-  const { items, isLoading } = useSelector(
-    (state: RootState) => state.realEstates
+  const { data: items, isFetching: isLoading } = useGetRealEstates();
+  const { regions } = useRealEstateFilter();
+
+  const filteredItems: IRealEstate[] = useMemo(
+    () =>
+      regions
+        ? items?.filter((item: any) =>
+            regions.split(",").includes(item?.city?.region?.name ?? "")
+          )
+        : items,
+    [items, regions]
   );
 
   return (
     <div className="flex flex-wrap gap-8 mt-5">
-      {!isLoading && items.length === 0 && (
+      {!isLoading && filteredItems?.length === 0 && (
         <h3 className="text-gray-2 font-extralight m-3 mt-8">
           აღნიშნული მონაცემებით განცხადება არ იძებნება
         </h3>
       )}
       {isLoading && <h1 className="text-xl">Loading...</h1>}
       {!isLoading &&
-        items.map((card) => <RealEstateCard card={card} key={card.id} />)}
+        filteredItems.map((card) => (
+          <RealEstateCard card={card} key={card.id} />
+        ))}
     </div>
   );
 };

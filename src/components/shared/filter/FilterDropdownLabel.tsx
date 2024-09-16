@@ -3,7 +3,7 @@ import { cn } from "../../../lib/utils";
 interface FilterDropdownLabelProps {
   text: string;
   isOpen: boolean;
-  toggleIsOpen: () => void;
+  toggleIsOpen?: () => void;
 }
 
 const FilterDropdownLabel = ({

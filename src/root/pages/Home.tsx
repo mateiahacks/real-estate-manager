@@ -4,18 +4,9 @@ import RealEstates from "../../components/shared/RealEstates";
 import { Button } from "../../components/ui";
 import { useToggle } from "../../hooks/useToggle";
 import AgentModal from "../../components/shared/AgentModal";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../state/store";
-import { getRealEstates } from "../../state/real-estates/realEstateSlice";
-import { useEffect } from "react";
 
 const Home = () => {
   const [showAgentModal, toggleShowAgentModal] = useToggle(false);
-  const dispatch = useDispatch<AppDispatch>();
-
-  useEffect(() => {
-    dispatch(getRealEstates()); // Fetch real estates when page loads
-  }, []);
 
   return (
     <div className="flex flex-col gap-3 w-full">

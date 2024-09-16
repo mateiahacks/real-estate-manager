@@ -15,6 +15,13 @@ export const useCreateRealEstate = () => {
   });
 };
 
+export const useGetRealEstates = () => {
+  return useQuery({
+    queryKey: [QUERY_KEYS.GET_REAL_ESTATES],
+    queryFn: () => axiosClient.get("/real-estates").then((res) => res.data),
+  });
+};
+
 export const useGetAgents = () => {
   return useQuery({
     queryKey: [QUERY_KEYS.GET_AGENTS],
