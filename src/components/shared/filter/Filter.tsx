@@ -5,11 +5,25 @@ import QuantityDropdown from "./QuantityDropdown";
 import RegionDropdown from "./RegionDropdown";
 
 const Filter = () => {
-  const { regions, setFilters } = useRealEstateFilter();
+  const { regions, priceFrom, priceTo, setFilters, deleteFilter } =
+    useRealEstateFilter();
+
+  const isAnyFilter = regions || priceFrom || priceTo;
 
   const removeRegion = (name: string) => {
     const arr = regions?.split(",");
     setFilters({ regions: arr?.filter((r) => r !== name) });
+  };
+
+  const removePriceFilter = () => {
+    deleteFilter("priceFrom");
+    deleteFilter("priceTo");
+  };
+
+  const clearFilter = () => {
+    deleteFilter("priceFrom");
+    deleteFilter("priceTo");
+    deleteFilter("regions");
   };
 
   return (
@@ -20,18 +34,11 @@ const Filter = () => {
         <AreaDropdown />
         <QuantityDropdown />
       </div>
-      {regions && (
-        <div className="flex items-center gap-3 mb">
+      <div className="flex gap-3 mb">
+        {regions && (
           <div className="flex flex-col gap-2">
             {regions.split(",").map((region: string) => (
-              <div
-                key={region}
-                className="text-[11px] text-text-color
-                fira-go-light font-bold text-center gap-2
-                border border-gray-1 px-2 py-1 rounded-3xl
-                flex items-center justify-center w-fit 
-                "
-              >
+              <div key={region} className="filter-tag">
                 <p>{region}</p>
                 <img
                   src="/assets/icons/x.png"
@@ -42,8 +49,31 @@ const Filter = () => {
               </div>
             ))}
           </div>
-        </div>
-      )}
+        )}
+        {priceFrom && priceTo && (
+          <div className="flex">
+            <div className="filter-tag">
+              <p>
+                {priceFrom}₾ - {priceTo}₾
+              </p>
+              <img
+                src="/assets/icons/x.png"
+                alt="x"
+                className="cursor-pointer"
+                onClick={() => removePriceFilter()}
+              />
+            </div>
+          </div>
+        )}
+        {isAnyFilter && (
+          <div
+            onClick={clearFilter}
+            className="flex items-center cursor-pointer ml-2 mt-1 h-fit"
+          >
+            <p className="text-xs">გასუფთავება</p>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

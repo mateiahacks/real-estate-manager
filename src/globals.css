@@ -40,6 +40,12 @@ body {
   scrollbar-width: none; /* Firefox */
 }
 
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 .radio-label,
 input,
 .rule,
@@ -59,5 +65,21 @@ input,
 
   .dropdown-data {
     @apply absolute bg-white top-20 w-full border border-gray-2 max-h-52 overflow-auto -mt-3 border-t-0 rounded-b-md no-scrollbar z-10;
+  }
+
+  .filter-tag {
+    @apply text-[11px] text-text-color
+    fira-go-light font-bold text-center gap-2
+    border border-gray-1 px-2 py-1 rounded-3xl
+    flex items-center justify-center w-fit h-fit;
+  }
+
+  .filter-price {
+    @apply fira-go-light text-sm text-center
+    font-bold text-text-color px-2 py-1 cursor-pointer;
+  }
+
+  .filter-price-input {
+    @apply flex h-10 w-full font-bold mt-1 rounded-md px-3 py-2 text-sm border;
   }
 }

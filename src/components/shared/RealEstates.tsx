@@ -6,18 +6,21 @@ import { useMemo } from "react";
 
 const RealEstates = () => {
   const { data: items, isFetching: isLoading } = useGetRealEstates();
-  const { regions } = useRealEstateFilter();
+  const { regions, priceFrom, priceTo } = useRealEstateFilter();
+
+  const isAnyFilter = regions || (priceFrom && priceTo);
 
   const filteredItems: IRealEstate[] = useMemo(
     () =>
-      regions
-        ? items?.filter((item: any) =>
-            regions.split(",").includes(item?.city?.region?.name ?? "")
+      isAnyFilter && items
+        ? items.filter(
+            (item: IRealEstate) =>
+              regions?.split(",").includes(item?.city?.region?.name ?? "") ||
+              (item.price >= Number(priceFrom) && item.price <= Number(priceTo))
           )
         : items,
-    [items, regions]
+    [items, regions, priceFrom, priceTo]
   );
-
   return (
     <div className="flex flex-wrap gap-8 mt-5">
       {!isLoading && filteredItems?.length === 0 && (
@@ -27,7 +30,7 @@ const RealEstates = () => {
       )}
       {isLoading && <h1 className="text-xl">Loading...</h1>}
       {!isLoading &&
-        filteredItems.map((card) => (
+        filteredItems?.map((card) => (
           <RealEstateCard card={card} key={card.id} />
         ))}
     </div>

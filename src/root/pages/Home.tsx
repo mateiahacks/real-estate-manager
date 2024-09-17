@@ -10,7 +10,7 @@ const Home = () => {
 
   return (
     <div className="flex flex-col gap-3 w-full">
-      <div className="w-full flex flex-wrap justify-between items-center">
+      <div className="w-full flex flex-wrap justify-between">
         <Filter />
         <div className="flex gap-3 items mb-3">
           <Link to={"/create-real-estate"}>
