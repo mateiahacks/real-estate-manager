@@ -6,9 +6,10 @@ import { useMemo } from "react";
 
 const RealEstates = () => {
   const { data: items, isFetching: isLoading } = useGetRealEstates();
-  const { regions, priceFrom, priceTo } = useRealEstateFilter();
+  const { regions, priceFrom, priceTo, areaFrom, areaTo } =
+    useRealEstateFilter();
 
-  const isAnyFilter = regions || (priceFrom && priceTo);
+  const isAnyFilter = regions || (priceFrom && priceTo) || (areaFrom && areaTo);
 
   const filteredItems: IRealEstate[] = useMemo(
     () =>
@@ -16,10 +17,12 @@ const RealEstates = () => {
         ? items.filter(
             (item: IRealEstate) =>
               regions?.split(",").includes(item?.city?.region?.name ?? "") ||
-              (item.price >= Number(priceFrom) && item.price <= Number(priceTo))
+              (item.price >= Number(priceFrom) &&
+                item.price <= Number(priceTo)) ||
+              (item.area >= Number(areaFrom) && item.area <= Number(areaTo))
           )
         : items,
-    [items, regions, priceFrom, priceTo]
+    [items, regions, priceFrom, priceTo, areaFrom, areaTo]
   );
   return (
     <div className="flex flex-wrap gap-8 mt-5">

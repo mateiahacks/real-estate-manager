@@ -1,5 +1,5 @@
 import { useToggle } from "../../../hooks/useToggle";
-import ChoosePrice from "./ChoosePrice";
+import ChoosRange from "./ChooseRange";
 import FilterDropdownLabel from "./FilterDropdownLabel";
 
 const PriceDropdown = () => {
@@ -12,7 +12,7 @@ const PriceDropdown = () => {
         isOpen={isOpen}
         toggleIsOpen={toggleIsOpen}
       />
-      {isOpen && <ChoosePrice toggleIsOpen={toggleIsOpen} />}
+      {isOpen && <ChoosRange toggleIsOpen={toggleIsOpen} type="price" />}
     </div>
   );
 };

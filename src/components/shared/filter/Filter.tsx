@@ -5,10 +5,17 @@ import QuantityDropdown from "./QuantityDropdown";
 import RegionDropdown from "./RegionDropdown";
 
 const Filter = () => {
-  const { regions, priceFrom, priceTo, setFilters, deleteFilter } =
-    useRealEstateFilter();
+  const {
+    regions,
+    priceFrom,
+    priceTo,
+    areaFrom,
+    areaTo,
+    setFilters,
+    deleteFilter,
+  } = useRealEstateFilter();
 
-  const isAnyFilter = regions || priceFrom || priceTo;
+  const isAnyFilter = regions || (priceFrom && priceTo) || (areaFrom && areaTo);
 
   const removeRegion = (name: string) => {
     const arr = regions?.split(",");
@@ -20,9 +27,16 @@ const Filter = () => {
     deleteFilter("priceTo");
   };
 
+  const removeAreaFilter = () => {
+    deleteFilter("areaFrom");
+    deleteFilter("areaTo");
+  };
+
   const clearFilter = () => {
     deleteFilter("priceFrom");
     deleteFilter("priceTo");
+    deleteFilter("areaFrom");
+    deleteFilter("areaTo");
     deleteFilter("regions");
   };
 
@@ -60,7 +74,22 @@ const Filter = () => {
                 src="/assets/icons/x.png"
                 alt="x"
                 className="cursor-pointer"
-                onClick={() => removePriceFilter()}
+                onClick={removePriceFilter}
+              />
+            </div>
+          </div>
+        )}
+        {areaFrom && areaTo && (
+          <div className="flex">
+            <div className="filter-tag">
+              <p>
+                {areaFrom}მ² - {areaTo}მ²
+              </p>
+              <img
+                src="/assets/icons/x.png"
+                alt="x"
+                className="cursor-pointer"
+                onClick={removeAreaFilter}
               />
             </div>
           </div>

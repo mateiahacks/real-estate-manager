@@ -1,19 +1,22 @@
 import { useRef, useState } from "react";
 import useOutsideClick from "../../../hooks/useOutsideClick";
-import { ERROR_MESSAGE, PRICES } from "../../../lib/constants";
+import { AREAS, ERROR_MESSAGE, PRICES } from "../../../lib/constants";
 import { Button } from "../../ui";
 import { cn } from "../../../lib/utils";
 import { useRealEstateFilter } from "../../../hooks/useRealEstateFilter";
 
-interface ChoosePriceProps {
+interface ChooseRangeProps {
   toggleIsOpen: () => void;
+  type: string;
 }
 
-const ChoosePrice = ({ toggleIsOpen }: ChoosePriceProps) => {
-  const [priceFrom, setPriceFrom] = useState("");
-  const [priceTo, setPriceTo] = useState("");
+const ChooseRange = ({ toggleIsOpen, type }: ChooseRangeProps) => {
+  const [from, setFrom] = useState("");
+  const [to, setTo] = useState("");
 
-  const isError = Number(priceFrom) > Number(priceTo) && priceFrom && priceTo;
+  const isError = Number(from) > Number(to) && from && to;
+
+  const MOCK_DATA = type === "price" ? PRICES : AREAS;
 
   const { setFilters } = useRealEstateFilter();
 
@@ -21,10 +24,14 @@ const ChoosePrice = ({ toggleIsOpen }: ChoosePriceProps) => {
   useOutsideClick(ref, toggleIsOpen);
 
   const filter = () => {
-    if (!priceFrom || !priceTo || isError) {
+    if (!from || !to || isError) {
       return;
     }
-    setFilters({ priceFrom: priceFrom, priceTo: priceTo });
+    setFilters(
+      type === "price"
+        ? { priceFrom: from, priceTo: to }
+        : { areaFrom: from, areaTo: to }
+    );
     toggleIsOpen();
   };
 
@@ -35,7 +42,9 @@ const ChoosePrice = ({ toggleIsOpen }: ChoosePriceProps) => {
     top-10 -left-1 w-[300px]
     bg-white z-10 border border-gray-1 shadow-md rounded-md"
     >
-      <p className="text-sm figa-go-light ml-2">ფასის მიხედვით</p>
+      <p className="text-sm figa-go-light ml-2">
+        {type === "price" ? "ფასის" : "ფართობის"} მიხედვით
+      </p>
       <div className="flex items-center gap-2">
         <div className="relative">
           <input
@@ -45,10 +54,12 @@ const ChoosePrice = ({ toggleIsOpen }: ChoosePriceProps) => {
               "filter-price-input",
               isError ? "border-primary" : ""
             )}
-            value={priceFrom}
-            onChange={(e) => setPriceFrom(e.target.value)}
+            value={from}
+            onChange={(e) => setFrom(e.target.value)}
           />
-          <p className="absolute top-3 right-2 text-gray-2">₾</p>
+          <p className="absolute top-3 right-2 text-gray-2">
+            {type === "price" ? "₾" : "მ²"}
+          </p>
         </div>
 
         <div className="relative">
@@ -59,10 +70,12 @@ const ChoosePrice = ({ toggleIsOpen }: ChoosePriceProps) => {
               "filter-price-input",
               isError ? "border-primary" : ""
             )}
-            value={priceTo}
-            onChange={(e) => setPriceTo(e.target.value)}
+            value={to}
+            onChange={(e) => setTo(e.target.value)}
           />
-          <p className="absolute top-3 right-2 text-gray-2">₾</p>
+          <p className="absolute top-3 right-2 text-gray-2">
+            {type === "price" ? "₾" : "მ²"}
+          </p>
         </div>
       </div>
       {isError && (
@@ -72,26 +85,30 @@ const ChoosePrice = ({ toggleIsOpen }: ChoosePriceProps) => {
       )}
       <div className="flex items-center gap-2 mt-2">
         <div className="w-full flex flex-col gap-2">
-          <label className="text-sm text-center">მინ. ფასი</label>
-          {PRICES.map((price) => (
+          <label className="text-sm text-center">
+            მინ. {type === "price" ? "ფასი" : "მ²"}
+          </label>
+          {MOCK_DATA.map((price) => (
             <div
               key={price}
               className="filter-price"
-              onClick={() => setPriceFrom(price.toString())}
+              onClick={() => setFrom(price.toString())}
             >
-              {price.toLocaleString()} ₾
+              {price.toLocaleString()} {type === "price" ? "₾" : "მ²"}
             </div>
           ))}
         </div>
         <div className="w-full flex flex-col gap-2">
-          <label className="text-sm text-center">მაქს. ფასი</label>
-          {PRICES.map((price) => (
+          <label className="text-sm text-center">
+            მაქს. {type === "price" ? "ფასი" : "მ²"}
+          </label>
+          {MOCK_DATA.map((price) => (
             <div
               key={price}
               className="filter-price"
-              onClick={() => setPriceTo(price.toString())}
+              onClick={() => setTo(price.toString())}
             >
-              {price.toLocaleString()} ₾
+              {price.toLocaleString()} {type === "price" ? "₾" : "მ²"}
             </div>
           ))}
         </div>
@@ -105,4 +122,4 @@ const ChoosePrice = ({ toggleIsOpen }: ChoosePriceProps) => {
   );
 };
 
-export default ChoosePrice;
+export default ChooseRange;
