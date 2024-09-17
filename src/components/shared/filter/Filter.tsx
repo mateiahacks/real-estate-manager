@@ -1,5 +1,6 @@
 import { useRealEstateFilter } from "../../../hooks/useRealEstateFilter";
 import AreaDropdown from "./AreaDropdown";
+import FilterTag from "./FilterTag";
 import PriceDropdown from "./PriceDropdown";
 import QuantityDropdown from "./QuantityDropdown";
 import RegionDropdown from "./RegionDropdown";
@@ -11,11 +12,13 @@ const Filter = () => {
     priceTo,
     areaFrom,
     areaTo,
+    bedrooms,
     setFilters,
     deleteFilter,
   } = useRealEstateFilter();
 
-  const isAnyFilter = regions || (priceFrom && priceTo) || (areaFrom && areaTo);
+  const isAnyFilter =
+    regions || (priceFrom && priceTo) || (areaFrom && areaTo) || bedrooms;
 
   const removeRegion = (name: string) => {
     const arr = regions?.split(",");
@@ -38,6 +41,7 @@ const Filter = () => {
     deleteFilter("areaFrom");
     deleteFilter("areaTo");
     deleteFilter("regions");
+    deleteFilter("bedrooms");
   };
 
   return (
@@ -52,48 +56,35 @@ const Filter = () => {
         {regions && (
           <div className="flex flex-col gap-2">
             {regions.split(",").map((region: string) => (
-              <div key={region} className="filter-tag">
-                <p>{region}</p>
-                <img
-                  src="/assets/icons/x.png"
-                  alt="x"
-                  className="cursor-pointer"
-                  onClick={() => removeRegion(region)}
-                />
-              </div>
+              <FilterTag content={region} remove={() => removeRegion(region)} />
             ))}
           </div>
         )}
         {priceFrom && priceTo && (
           <div className="flex">
-            <div className="filter-tag">
-              <p>
-                {priceFrom}₾ - {priceTo}₾
-              </p>
-              <img
-                src="/assets/icons/x.png"
-                alt="x"
-                className="cursor-pointer"
-                onClick={removePriceFilter}
-              />
-            </div>
+            <FilterTag
+              content={`${priceFrom}₾ - ${priceTo}₾`}
+              remove={removePriceFilter}
+            />
           </div>
         )}
         {areaFrom && areaTo && (
           <div className="flex">
-            <div className="filter-tag">
-              <p>
-                {areaFrom}მ² - {areaTo}მ²
-              </p>
-              <img
-                src="/assets/icons/x.png"
-                alt="x"
-                className="cursor-pointer"
-                onClick={removeAreaFilter}
-              />
-            </div>
+            <FilterTag
+              content={`${areaFrom}მ² - ${areaTo}მ²`}
+              remove={removeAreaFilter}
+            />
           </div>
         )}
+        {bedrooms && (
+          <div className="flex">
+            <FilterTag
+              content={bedrooms}
+              remove={() => deleteFilter("bedrooms")}
+            />
+          </div>
+        )}
+
         {isAnyFilter && (
           <div
             onClick={clearFilter}

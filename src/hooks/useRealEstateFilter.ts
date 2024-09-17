@@ -9,6 +9,7 @@ export function useRealEstateFilter() {
   const priceTo = searchParams.get("priceTo");
   const areaFrom = searchParams.get("areaFrom");
   const areaTo = searchParams.get("areaTo");
+  const bedrooms = searchParams.get("bedrooms");
 
   const setFilters = useCallback((filters: any) => {
     setSearchParams((params) => {
@@ -27,6 +28,9 @@ export function useRealEstateFilter() {
       if (filters.areaTo) {
         params.set("areaTo", filters.areaTo);
       }
+      if (filters.bedrooms) {
+        params.set("bedrooms", filters.bedrooms);
+      }
       return params;
     });
   }, []);
@@ -43,6 +47,7 @@ export function useRealEstateFilter() {
     priceTo,
     areaFrom,
     areaTo,
+    bedrooms,
     regions,
     deleteFilter,
     setFilters,
