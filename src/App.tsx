@@ -3,8 +3,8 @@ import RootLayout from "./root/RootLayout";
 
 import "./globals.css";
 import { Home } from "./root/pages";
-import RealEstateDetails from "./root/pages/RealEstateDetails";
 import CreateRealEstate from "./root/pages/CreateRealEstate";
+import RealEstateDetailsPage from "./root/pages/RealEstateDetailsPage";
 
 const App = () => {
   return (
@@ -12,7 +12,7 @@ const App = () => {
       <Routes>
         <Route element={<RootLayout />}>
           <Route index element={<Home />} />
-          <Route path="/real-estate/:id" element={<RealEstateDetails />} />
+          <Route path="/real-estate/:id" element={<RealEstateDetailsPage />} />
           <Route path="/create-real-estate" element={<CreateRealEstate />} />
         </Route>
       </Routes>

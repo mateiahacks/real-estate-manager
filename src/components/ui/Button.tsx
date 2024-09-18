@@ -10,6 +10,7 @@ const buttonVariants = cva(
           "bg-primary p-4 text-white font-light hover:bg-white hover:bg-primary-2",
         secondary:
           "border p-4 border-primary text-primary hover:bg-primary hover:text-white",
+        gray: "border p-4 border-gray-2 text-gray-2 hover:bg-gray-2 hover:text-white",
       },
       size: { sm: "h-7 p-3 text flex fira-go-light font-bold", lg: "h-9" },
     },

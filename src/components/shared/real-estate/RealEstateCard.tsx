@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { IRealEstate } from "../../../types";
 
 interface RealEstateCardProps {
@@ -5,8 +6,13 @@ interface RealEstateCardProps {
 }
 
 const RealEstateCard = ({ card }: RealEstateCardProps) => {
+  const nav = useNavigate();
+
   return (
-    <div className="w-1/5 rounded-xl shadow-md cursor-pointer border border-gray-1">
+    <div
+      className="w-1/5 rounded-xl shadow-md cursor-pointer border border-gray-1"
+      onClick={() => nav(`/real-estate/${card.id}`)}
+    >
       <div className="w-full relative">
         <div className="absolute top-4 left-4 px-2 py-1 rounded-2xl bg-transparent-black">
           <p className="text-white text-xs fira-go-light font-bold">
@@ -16,7 +22,7 @@ const RealEstateCard = ({ card }: RealEstateCardProps) => {
         <img
           src={card.image}
           alt="card-img"
-          className="w-full object-center object-contain"
+          className="w-full object-center object-contain rounded-t-xl"
         />
       </div>
       <div className="flex flex-col gap-4 w-full px-3 py-4">

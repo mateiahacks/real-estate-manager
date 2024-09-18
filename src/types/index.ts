@@ -12,11 +12,15 @@ export interface IRealEstate {
   bedrooms: number;
   is_rental: boolean;
   agent_id: number;
+  agent?: IAgent;
+  created_at?: string;
 }
 
 export interface IAgent extends IDropdownItem {
   surname: string;
   avatar: string;
+  email?: string;
+  phone?: string;
 }
 
 export interface ICity extends IDropdownItem {

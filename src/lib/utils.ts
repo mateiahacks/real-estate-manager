@@ -18,3 +18,14 @@ export function formData(object: any) {
   Object.keys(object).forEach((key) => data.append(key, object[key]));
   return data;
 }
+
+export function formatDate(dateString: string): string {
+  let date = new Date(dateString);
+
+  let year = date.getFullYear();
+  let month = String(date.getMonth() + 1).padStart(2, "0");
+  let day = String(date.getDate()).padStart(2, "0");
+  let formattedDate = `${day}/${month}/${year}`;
+
+  return formattedDate;
+}

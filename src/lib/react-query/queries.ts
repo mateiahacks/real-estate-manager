@@ -1,6 +1,7 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import axiosClient from "../axios-client";
 import { QUERY_KEYS } from "./queryKeys";
+import { IRealEstate } from "../../types";
 
 export const useCreateAgent = () => {
   return useMutation({
@@ -19,6 +20,17 @@ export const useGetRealEstates = () => {
   return useQuery({
     queryKey: [QUERY_KEYS.GET_REAL_ESTATES],
     queryFn: () => axiosClient.get("/real-estates").then((res) => res.data),
+  });
+};
+
+export const useGetRealEstate = (id: number) => {
+  return useQuery({
+    queryKey: [QUERY_KEYS.GET_REAL_ESTATE],
+    queryFn: () =>
+      axiosClient
+        .get(`/real-estates/${id}`)
+        .then((res) => res.data as IRealEstate),
+    refetchOnWindowFocus: false,
   });
 };
 
