@@ -1,16 +1,22 @@
 import { useNavigate } from "react-router-dom";
 import { IRealEstate } from "../../../types";
+import { cn } from "../../../lib/utils";
 
 interface RealEstateCardProps {
   card: IRealEstate;
+  className?: string;
 }
 
-const RealEstateCard = ({ card }: RealEstateCardProps) => {
+const RealEstateCard = ({ card, className }: RealEstateCardProps) => {
   const nav = useNavigate();
 
   return (
     <div
-      className="flex flex-col justify-between lg:w-[23.5%] w-[250px] rounded-xl shadow-md cursor-pointer border border-gray-1"
+      className={cn(
+        "flex flex-col justify-between lg:w-[23.5%] w-[250px] rounded-xl",
+        "shadow-md cursor-pointer border border-gray-1",
+        className
+      )}
       onClick={() => nav(`/real-estate/${card.id}`)}
     >
       <div className="w-full relative h-[60%]">

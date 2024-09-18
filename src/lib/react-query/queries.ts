@@ -31,7 +31,7 @@ export const useGetRealEstates = () => {
 
 export const useGetRealEstate = (id: number) => {
   return useQuery({
-    queryKey: [QUERY_KEYS.GET_REAL_ESTATE],
+    queryKey: [QUERY_KEYS.GET_REAL_ESTATE, id],
     queryFn: () =>
       axiosClient
         .get(`/real-estates/${id}`)

@@ -16,6 +16,18 @@ body {
   color: #021526;
 }
 
+.slick-slide > div {
+  margin: 0 15%;
+}
+
+.slick-next {
+  margin-right: -35px;
+}
+
+.slick-prev {
+  margin-left: -35px;
+}
+
 .modal-overlay {
   background-color: rgba(0, 0, 0, 0.4);
   position: fixed;
