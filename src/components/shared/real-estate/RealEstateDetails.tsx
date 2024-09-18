@@ -1,19 +1,22 @@
 import { useNavigate, useParams } from "react-router-dom";
-import {
-  useDeleteRealEstate,
-  useGetRealEstate,
-} from "../../../lib/react-query/queries";
+import { useDeleteRealEstate } from "../../../lib/react-query/queries";
 import { formatDate } from "../../../lib/utils";
 import RealEstateAttribute from "./RealEstateAttribute";
 import Agent from "./Agent";
 import { Button } from "../../ui";
 import ConfirmationModal from "../ConfirmationModal";
 import { useToggle } from "../../../hooks/useToggle";
+import { UseQueryResult } from "@tanstack/react-query";
+import { IRealEstate } from "../../../types";
 
-const RealEstateDetails = () => {
+interface RealEstateDetailsProps {
+  query: UseQueryResult<IRealEstate, Error>;
+}
+
+const RealEstateDetails = ({ query }: RealEstateDetailsProps) => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { data, isFetching } = useGetRealEstate(Number(id));
+  const { data, isFetching } = query;
   const { mutateAsync, isPending } = useDeleteRealEstate();
 
   const [showConfirmation, toggleShowConfirmation] = useToggle(false);
