@@ -11,14 +11,27 @@ interface ChooseRangeProps {
 }
 
 const ChooseRange = ({ toggleIsOpen, type }: ChooseRangeProps) => {
-  const [from, setFrom] = useState("");
-  const [to, setTo] = useState("");
+  const { setFilters, areaFrom, areaTo, priceFrom, priceTo } =
+    useRealEstateFilter();
+
+  const [from, setFrom] = useState(
+    type === "price" && priceFrom
+      ? priceFrom
+      : type === "area" && areaFrom
+      ? areaFrom
+      : ""
+  );
+  const [to, setTo] = useState(
+    type === "price" && priceTo
+      ? priceTo
+      : type === "area" && areaTo
+      ? areaTo
+      : ""
+  );
 
   const isError = Number(from) > Number(to) && from && to;
 
   const MOCK_DATA = type === "price" ? PRICES : AREAS;
-
-  const { setFilters } = useRealEstateFilter();
 
   const ref = useRef(null);
   useOutsideClick(ref, toggleIsOpen);

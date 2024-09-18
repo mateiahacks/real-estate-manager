@@ -1,5 +1,6 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { IDropdownItem } from "../types";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -28,4 +29,11 @@ export function formatDate(dateString: string): string {
   let formattedDate = `${day}/${month}/${year}`;
 
   return formattedDate;
+}
+
+export function regionsWithIds(regions: string[], objects: IDropdownItem[]) {
+  return regions.map((r) => {
+    const obj = objects.find((o) => o.name === r);
+    return obj;
+  }) as IDropdownItem[];
 }

@@ -8,8 +8,8 @@ interface ChooseQuantityProps {
 }
 
 const ChooseQuantity = ({ toggleIsOpen }: ChooseQuantityProps) => {
-  const [quantity, setQuantity] = useState<string>("");
-  const { setFilters } = useRealEstateFilter();
+  const { setFilters, bedrooms } = useRealEstateFilter();
+  const [quantity, setQuantity] = useState<string>(bedrooms ? bedrooms : "");
 
   const ref = useRef(null);
   useOutsideClick(ref, toggleIsOpen);

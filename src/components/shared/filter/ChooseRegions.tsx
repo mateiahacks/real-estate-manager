@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { cn } from "../../../lib/utils";
+import { cn, regionsWithIds } from "../../../lib/utils";
 import { IDropdownItem } from "../../../types";
 import Checkbox from "../../ui/Checkbox";
 import useOutsideClick from "../../../hooks/useOutsideClick";
@@ -14,9 +14,11 @@ interface ChooseRegionsProps {
 const ChooseRegions = ({ regions, toggleIsOpen }: ChooseRegionsProps) => {
   const ref = useRef(null);
   useOutsideClick(ref, toggleIsOpen);
+  const { setFilters, regions: regionsString } = useRealEstateFilter();
 
-  const [checkedRegions, setCheckedRegions] = useState<IDropdownItem[]>([]);
-  const { setFilters } = useRealEstateFilter();
+  const [checkedRegions, setCheckedRegions] = useState<IDropdownItem[]>(
+    regionsString ? regionsWithIds(regionsString.split(","), regions) : []
+  );
 
   const filter = () => {
     setFilters({ regions: checkedRegions.map((r) => r.name) });
