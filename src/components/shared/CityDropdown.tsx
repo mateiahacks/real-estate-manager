@@ -5,14 +5,21 @@ import { Dropdown } from "../ui";
 import { useGetCities } from "../../lib/react-query/queries";
 import DropdownItem from "./DropdownItem";
 import { ICity, IDropdownItem } from "../../types";
+import { cn } from "../../lib/utils";
 
 interface CityDropdownProps {
   city: ICity | null;
   region: IDropdownItem | null;
   setCity: Dispatch<SetStateAction<ICity | null>>;
+  className?: string;
 }
 
-const CityDropdown = ({ city, setCity, region }: CityDropdownProps) => {
+const CityDropdown = ({
+  city,
+  setCity,
+  region,
+  className,
+}: CityDropdownProps) => {
   const { data, isFetching } = useGetCities();
   const [isOpen, toggleIsOpen] = useToggle(false);
   const ref = useRef(null);
@@ -31,7 +38,7 @@ const CityDropdown = ({ city, setCity, region }: CityDropdownProps) => {
   };
 
   return (
-    <div className="w-full relative">
+    <div className={cn("w-full relative", className)}>
       <Dropdown label="ქალაქი" selected={city} onClick={toggleIsOpen} />
       {isOpen && !isFetching && (
         <div className="dropdown-data" ref={ref}>

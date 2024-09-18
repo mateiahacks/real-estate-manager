@@ -112,7 +112,12 @@ const RealEstateForm = ({}: RealEstateFormProps) => {
                 setRegion={setRegion}
                 setCity={setCity}
               />
-              <CityDropdown city={city} setCity={setCity} region={region} />
+              <CityDropdown
+                city={city}
+                setCity={setCity}
+                region={region}
+                className={region ? "" : "invisible"}
+              />
             </div>
           </div>
 
