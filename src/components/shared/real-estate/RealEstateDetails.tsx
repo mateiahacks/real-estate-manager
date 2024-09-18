@@ -40,6 +40,11 @@ const RealEstateDetails = () => {
         <p className="absolute right-0 -bottom-6 text-[12px] fira-go-light text-gray-2">
           გამოქვეყნების თარიღი {formatDate(data?.created_at ?? "")}
         </p>
+        <div className="absolute top-7 left-8 px-3 py-1 font-bold rounded-2xl bg-transparent-black flex">
+          <p className="text-white text-xs fira-go-light mb-[1px]">
+            {data.is_rental ? "ქირავდება" : "იყიდება"}
+          </p>
+        </div>
       </div>
       <div className="flex flex-col gap-3 w-1/2">
         <h1 className="text-4xl mb-3 font-bold">
