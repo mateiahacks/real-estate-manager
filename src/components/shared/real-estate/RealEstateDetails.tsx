@@ -1,13 +1,30 @@
-import { useParams } from "react-router-dom";
-import { useGetRealEstate } from "../../../lib/react-query/queries";
+import { useNavigate, useParams } from "react-router-dom";
+import {
+  useDeleteRealEstate,
+  useGetRealEstate,
+} from "../../../lib/react-query/queries";
 import { formatDate } from "../../../lib/utils";
 import RealEstateAttribute from "./RealEstateAttribute";
 import Agent from "./Agent";
 import { Button } from "../../ui";
+import ConfirmationModal from "../ConfirmationModal";
+import { useToggle } from "../../../hooks/useToggle";
 
 const RealEstateDetails = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const { data, isFetching } = useGetRealEstate(Number(id));
+  const { mutateAsync, isPending } = useDeleteRealEstate();
+
+  const [showConfirmation, toggleShowConfirmation] = useToggle(false);
+
+  const onDelete = async () => {
+    if (!id) {
+      return;
+    }
+    await mutateAsync(Number(id));
+    navigate("/");
+  };
 
   if (isFetching || !data) {
     return <p>Loading...</p>;
@@ -48,10 +65,20 @@ const RealEstateDetails = () => {
           {data.description}
         </p>
         <Agent agent={data.agent} />
-        <Button variant={"gray"} className="w-fit">
+        <Button
+          variant={"gray"}
+          className="w-fit"
+          onClick={toggleShowConfirmation}
+        >
           ლისტინგის წაშლა
         </Button>
       </div>
+      <ConfirmationModal
+        isOpen={showConfirmation}
+        toggleIsOpen={toggleShowConfirmation}
+        onApprove={onDelete}
+        isPending={isPending}
+      />
     </div>
   );
 };

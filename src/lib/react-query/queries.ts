@@ -16,6 +16,12 @@ export const useCreateRealEstate = () => {
   });
 };
 
+export const useDeleteRealEstate = () => {
+  return useMutation({
+    mutationFn: (id: number) => axiosClient.delete(`/real-estates/${id}`),
+  });
+};
+
 export const useGetRealEstates = () => {
   return useQuery({
     queryKey: [QUERY_KEYS.GET_REAL_ESTATES],
