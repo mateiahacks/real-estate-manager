@@ -46,8 +46,14 @@ const RealEstateForm = ({}: RealEstateFormProps) => {
     useCreateRealEstate();
 
   const onSubmit: SubmitHandler<FormFields> = async (data: FormFields) => {
-    if (!region || !city || !agent || data.image.length === 0) {
-      return; // check for dropdowns and image
+    if (
+      !region ||
+      !city ||
+      !agent ||
+      data.image.length === 0 ||
+      data.image[0].size < 1048576
+    ) {
+      return; // check for dropdowns and image validation
     }
     try {
       await createRealEstate(
