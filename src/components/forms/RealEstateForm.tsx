@@ -7,7 +7,7 @@ import {
   RadioButton,
   Textarea,
 } from "../ui";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { z } from "zod";
 import { RealEstateValidation } from "../../lib/validation";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
@@ -21,6 +21,8 @@ import { useCreateRealEstate } from "../../lib/react-query/queries";
 import { formData } from "../../lib/utils";
 import AgentModal from "../shared/AgentModal";
 import { useToggle } from "../../hooks/useToggle";
+import useFormPersist from "react-hook-form-persist";
+import { useLocalStorageImage } from "../../hooks/useLocalStorageImage";
 
 type FormFields = z.infer<typeof RealEstateValidation>;
 
@@ -33,25 +35,36 @@ const RealEstateForm = ({}: RealEstateFormProps) => {
   const [agent, setAgent] = useState<IAgent | null>(null);
   const [showAgentModal, toggleShowAgentModal] = useToggle(false);
 
+  const { blob: savedImage, clearImage, saveImage } = useLocalStorageImage();
+
   const methods = useForm<FormFields>({
     resolver: zodResolver(RealEstateValidation),
     mode: "all",
   });
 
-  const { handleSubmit } = methods;
+  const { handleSubmit, watch, setValue, reset } = methods;
+
+  useFormPersist("real-estate-form", { watch, setValue });
 
   const navigate = useNavigate();
 
   const { mutateAsync: createRealEstate, isPending: isCreating } =
     useCreateRealEstate();
 
+  const cancel = () => {
+    sessionStorage.clear();
+    reset();
+    clearImage();
+    navigate("/");
+  };
+
   const onSubmit: SubmitHandler<FormFields> = async (data: FormFields) => {
     if (
+      !savedImage ||
       !region ||
       !city ||
       !agent ||
-      data.image.length === 0 ||
-      data.image[0].size > 1048576
+      savedImage?.size > 1048576
     ) {
       return; // check for dropdowns and image validation
     }
@@ -63,10 +76,10 @@ const RealEstateForm = ({}: RealEstateFormProps) => {
           region_id: region?.id,
           city_id: city?.id,
           agent_id: agent?.id,
-          image: data.image[0],
+          image: savedImage,
         })
       );
-      navigate("/");
+      cancel();
     } catch (error) {
       console.error(error);
     }
@@ -157,7 +170,13 @@ const RealEstateForm = ({}: RealEstateFormProps) => {
               name="description"
               rule="მინიმუმ ხუთი სიტყვა"
             />
-            <ImageUpload name="image" label="ატვირთეთ ფოტო *" />
+            <ImageUpload
+              name="image"
+              label="ატვირთეთ ფოტო *"
+              clearImage={clearImage}
+              saveImage={saveImage}
+              savedImage={savedImage}
+            />
           </div>
 
           <div className="form-block">
@@ -180,11 +199,9 @@ const RealEstateForm = ({}: RealEstateFormProps) => {
                 "დაამატე ლისტინგი"
               )}
             </Button>
-            <Link to={"/"}>
-              <Button variant={"secondary"} type="button">
-                გაუქმება
-              </Button>
-            </Link>
+            <Button variant={"secondary"} type="button" onClick={cancel}>
+              გაუქმება
+            </Button>
           </div>
         </form>
       </FormProvider>

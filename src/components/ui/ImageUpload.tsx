@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { cn } from "../../lib/utils";
 import { useFormContext } from "react-hook-form";
 import { ERROR_MESSAGE } from "../../lib/constants";
@@ -7,31 +7,37 @@ interface ImageUploadProps extends React.InputHTMLAttributes<HTMLInputElement> {
   className?: string;
   label?: string;
   name: string;
+  saveImage: (image: File) => void;
+  clearImage: () => void;
+  savedImage?: Blob | null;
 }
 
 const ImageUpload = ({
   className,
   label,
   name,
+  saveImage,
+  savedImage,
+  clearImage,
   ...props
 }: ImageUploadProps) => {
   const form = useFormContext();
-  const [file, setFile] = useState<any>(null);
 
   const {
     formState: { isSubmitted },
   } = form;
 
-  const isMoreThan1mb = file && file?.size > 1048576;
+  //const [file, setFile] = useState<any>(savedFile ? savedFile : null);
+  const isMoreThan1mb = savedImage && savedImage?.size > 1048576;
 
   const onChange = (e: any) => {
     form.register(name).onChange(e);
-    setFile(e.target.files[0]);
+    saveImage(e.target.files[0]);
   };
 
   const onRemoveImage = (e: any) => {
     e.stopPropagation();
-    setFile(null);
+    clearImage();
     form.resetField(name);
   };
 
@@ -47,17 +53,17 @@ const ImageUpload = ({
         className={cn(
           "flex items-center justify-center h-32 w-full mt-1 rounded-md px-3 py-2 text-xs",
           "border-gray-2 border-dashed border-2 resize-none cursor-pointer",
-          (!file && isSubmitted) || isMoreThan1mb
+          (!savedImage && isSubmitted) || isMoreThan1mb
             ? "border-primary"
             : "border-gray-2",
           className
         )}
       >
-        {!file && <img src="/assets/icons/plus-circle.png" alt="plus" />}
-        {file && (
+        {!savedImage && <img src="/assets/icons/plus-circle.png" alt="plus" />}
+        {savedImage && (
           <div className="relative">
             <img
-              src={URL.createObjectURL(file)}
+              src={URL.createObjectURL(savedImage ?? new Blob())}
               alt="avatar"
               className="w-24 h-24 object-contain object-center border rounded-md"
             />
