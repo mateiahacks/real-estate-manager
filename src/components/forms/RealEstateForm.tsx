@@ -51,7 +51,7 @@ const RealEstateForm = ({}: RealEstateFormProps) => {
       !city ||
       !agent ||
       data.image.length === 0 ||
-      data.image[0].size < 1048576
+      data.image[0].size > 1048576
     ) {
       return; // check for dropdowns and image validation
     }
