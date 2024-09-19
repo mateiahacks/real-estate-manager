@@ -8,7 +8,7 @@ import RealEstateDetailsPage from "./root/pages/RealEstateDetailsPage";
 
 const App = () => {
   return (
-    <main className="md:flex h-screen">
+    <main className="md:flex h-full">
       <Routes>
         <Route element={<RootLayout />}>
           <Route index element={<Home />} />

@@ -14,7 +14,7 @@ const RealEstateCard = ({ card, className }: RealEstateCardProps) => {
     <div
       className={cn(
         "flex flex-col justify-between lg:w-[23.5%] w-[250px] rounded-xl",
-        "shadow-md cursor-pointer border border-gray-1",
+        "shadow-md cursor-pointer border border-gray-1 h-[380px]",
         className
       )}
       onClick={() => nav(`/real-estate/${card.id}`)}

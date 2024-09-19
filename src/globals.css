@@ -17,7 +17,7 @@ body {
 }
 
 .slick-slide > div {
-  margin: 0 15%;
+  margin: 0 15px;
 }
 
 .slick-next {
@@ -27,6 +27,18 @@ body {
 .slick-prev {
   margin-left: -35px;
 }
+
+/* .slick-slider {
+  position: relative;
+  display: inline-block;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  -khtml-user-select: none;
+  touch-action: pan-y;
+  -webkit-tap-highlight-color: transparent;
+} */
 
 .modal-overlay {
   background-color: rgba(0, 0, 0, 0.4);
