@@ -22,6 +22,13 @@ const ChooseQuantity = ({ toggleIsOpen }: ChooseQuantityProps) => {
     toggleIsOpen();
   };
 
+  const onChange = (e: any) => {
+    if (!Number.isInteger(Number(e.target.value))) {
+      return;
+    }
+    setQuantity(e.target.value);
+  };
+
   return (
     <div
       ref={ref}
@@ -34,8 +41,10 @@ const ChooseQuantity = ({ toggleIsOpen }: ChooseQuantityProps) => {
         <input
           type="number"
           value={quantity}
-          onChange={(e) => setQuantity(e.target.value)}
+          onChange={onChange}
           className="w-10 h-10 p-3 border border-gray-2 rounded-md text-center text-sm"
+          min="0"
+          step="1"
         />
       </div>
       <div className="w-full flex flex-row-reverse">
