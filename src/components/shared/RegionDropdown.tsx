@@ -23,7 +23,6 @@ const RegionDropdown = ({
   useOutsideClick(ref, toggleIsOpen); // should close on outside click
 
   const onSelect = (region: IDropdownItem) => {
-    console.log("parapa");
     setRegion(region);
     setCity(null);
     toggleIsOpen();

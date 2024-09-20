@@ -29,8 +29,6 @@ const RealEstateDetailsPage = () => {
     [id, realEstate, realEstates]
   );
 
-  console.log(filteredEstates);
-
   return (
     <div className="flex flex-col gap-3 w-full relative px-16">
       <Link to={"/"}>
