@@ -31,8 +31,14 @@ const ImageUpload = ({
 
   //const [file, setFile] = useState<any>(savedFile ? savedFile : null);
   const isMoreThan1mb = savedImage && savedImage?.size > MAX_FILE_SIZE;
+  const isImageType: boolean = savedImage
+    ? savedImage.type.includes("image")
+    : true;
 
   const onChange = (e: any) => {
+    // if (!e.target.files[0].type.includes("image")) {
+    //   return;
+    // }
     form.register(name).onChange(e);
     saveImage(e.target.files[0]);
   };
@@ -70,7 +76,7 @@ const ImageUpload = ({
         className={cn(
           "flex items-center justify-center h-32 w-full mt-1 rounded-md px-3 py-2 text-xs",
           "border-gray-2 border-dashed border-2 resize-none cursor-pointer",
-          (!savedImage && isSubmitted) || isMoreThan1mb
+          (!savedImage && isSubmitted) || isMoreThan1mb || !isImageType
             ? "border-primary"
             : "border-gray-2",
           className
@@ -106,6 +112,13 @@ const ImageUpload = ({
           />
           <p className="rule text-xs font-bold text-primary">
             {ERROR_MESSAGE.FILE_SIZE}
+          </p>
+        </div>
+      )}
+      {!isImageType && (
+        <div className="flex items-center gap-1 mt-1">
+          <p className="rule text-xs font-bold text-primary">
+            {ERROR_MESSAGE.NOT_IMAGE}
           </p>
         </div>
       )}

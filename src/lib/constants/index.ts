@@ -1,6 +1,7 @@
 export enum ERROR_MESSAGE {
   VALIDATION = "ჩაწერეთ ვალიდური მონაცემები",
   FILE_SIZE = "სურათის ზომა ნაკლები უნდა იყოს 1მბ-ზე",
+  NOT_IMAGE = "არასწორი ფაილი",
 }
 
 export const PRICES = [50000, 100000, 150000, 200000, 250000, 300000];

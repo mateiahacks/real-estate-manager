@@ -34,7 +34,14 @@ const AgentForm = ({ toggleIsOpen }: AgentFormProps) => {
   } = useLocalStorageImage(true);
 
   const onSubmit: SubmitHandler<FormFields> = async (data: FormFields) => {
-    if (data.avatar.length === 0 || data.avatar[0].size > MAX_FILE_SIZE) {
+    const isImageType: boolean = savedImage
+      ? savedImage.type.includes("image")
+      : true;
+    if (
+      data.avatar.length === 0 ||
+      data.avatar[0].size > MAX_FILE_SIZE ||
+      !isImageType
+    ) {
       return; // check for image validation
     }
     try {

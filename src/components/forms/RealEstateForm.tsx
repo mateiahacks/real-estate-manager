@@ -66,11 +66,15 @@ const RealEstateForm = ({}: RealEstateFormProps) => {
   };
 
   const onSubmit: SubmitHandler<FormFields> = async (data: FormFields) => {
+    const isImageType: boolean = savedImage
+      ? savedImage.type.includes("image")
+      : true;
     if (
       !savedImage ||
       !region ||
       !city ||
       !agent ||
+      !isImageType ||
       savedImage?.size > MAX_FILE_SIZE
     ) {
       return; // check for dropdowns and image validation
