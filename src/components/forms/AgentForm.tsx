@@ -9,6 +9,7 @@ import Loader from "../shared/Loader";
 import { useQueryClient } from "@tanstack/react-query";
 import { QUERY_KEYS } from "../../lib/react-query/queryKeys";
 import { useLocalStorageImage } from "../../hooks/useLocalStorageImage";
+import { MAX_FILE_SIZE } from "../../lib/constants";
 
 type FormFields = z.infer<typeof AgentValidation>;
 
@@ -33,7 +34,7 @@ const AgentForm = ({ toggleIsOpen }: AgentFormProps) => {
   } = useLocalStorageImage(true);
 
   const onSubmit: SubmitHandler<FormFields> = async (data: FormFields) => {
-    if (data.avatar.length === 0 || data.avatar[0].size > 1048576) {
+    if (data.avatar.length === 0 || data.avatar[0].size > MAX_FILE_SIZE) {
       return; // check for image validation
     }
     try {

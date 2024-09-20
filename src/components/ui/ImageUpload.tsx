@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { cn } from "../../lib/utils";
 import { useFormContext } from "react-hook-form";
-import { ERROR_MESSAGE } from "../../lib/constants";
+import { ERROR_MESSAGE, MAX_FILE_SIZE } from "../../lib/constants";
 
 interface ImageUploadProps extends React.InputHTMLAttributes<HTMLInputElement> {
   className?: string;
@@ -30,7 +30,7 @@ const ImageUpload = ({
   } = form;
 
   //const [file, setFile] = useState<any>(savedFile ? savedFile : null);
-  const isMoreThan1mb = savedImage && savedImage?.size > 1048576;
+  const isMoreThan1mb = savedImage && savedImage?.size > MAX_FILE_SIZE;
 
   const onChange = (e: any) => {
     form.register(name).onChange(e);

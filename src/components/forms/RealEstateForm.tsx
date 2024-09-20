@@ -22,6 +22,7 @@ import { useToggle } from "../../hooks/useToggle";
 import useFormPersist from "react-hook-form-persist";
 import { useLocalStorageImage } from "../../hooks/useLocalStorageImage";
 import { useDropdownStorage } from "../../hooks/useDropdownStorage";
+import { MAX_FILE_SIZE } from "../../lib/constants";
 
 type FormFields = z.infer<typeof RealEstateValidation>;
 
@@ -70,7 +71,7 @@ const RealEstateForm = ({}: RealEstateFormProps) => {
       !region ||
       !city ||
       !agent ||
-      savedImage?.size > 1048576
+      savedImage?.size > MAX_FILE_SIZE
     ) {
       return; // check for dropdowns and image validation
     }
