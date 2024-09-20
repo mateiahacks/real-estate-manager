@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useRef } from "react";
+import { useRef } from "react";
 import { useToggle } from "../../hooks/useToggle";
 import { useGetRegions } from "../../lib/react-query/queries";
 import { ICity, IDropdownItem } from "../../types";
@@ -8,8 +8,8 @@ import useOutsideClick from "../../hooks/useOutsideClick";
 
 interface RegionDropdownProps {
   region: IDropdownItem | null;
-  setRegion: Dispatch<SetStateAction<IDropdownItem | null>>;
-  setCity: Dispatch<SetStateAction<ICity | null>>;
+  setRegion: (region: IDropdownItem) => void;
+  setCity: (city: ICity | null) => void;
 }
 
 const RegionDropdown = ({
@@ -23,6 +23,7 @@ const RegionDropdown = ({
   useOutsideClick(ref, toggleIsOpen); // should close on outside click
 
   const onSelect = (region: IDropdownItem) => {
+    console.log("parapa");
     setRegion(region);
     setCity(null);
     toggleIsOpen();

@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useRef } from "react";
+import { useRef } from "react";
 import { useGetAgents } from "../../lib/react-query/queries";
 import { Dropdown } from "../ui";
 import DropdownItem from "./DropdownItem";
@@ -8,7 +8,7 @@ import { IAgent } from "../../types";
 
 interface AgentDropdownProps {
   agent: IAgent | null;
-  setAgent: Dispatch<SetStateAction<IAgent | null>>;
+  setAgent: (agent: IAgent | null) => void;
   toggleShowAgentModal: () => void;
 }
 

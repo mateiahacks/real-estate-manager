@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   Button,
   Dropdown,
@@ -13,7 +12,6 @@ import { RealEstateValidation } from "../../lib/validation";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import RegionDropdown from "../shared/RegionDropdown";
-import { IAgent, ICity, IDropdownItem } from "../../types";
 import CityDropdown from "../shared/CityDropdown";
 import AgentDropdown from "../shared/AgentDropdown";
 import Loader from "../shared/Loader";
@@ -23,19 +21,26 @@ import AgentModal from "../shared/AgentModal";
 import { useToggle } from "../../hooks/useToggle";
 import useFormPersist from "react-hook-form-persist";
 import { useLocalStorageImage } from "../../hooks/useLocalStorageImage";
+import { useDropdownStorage } from "../../hooks/useDropdownStorage";
 
 type FormFields = z.infer<typeof RealEstateValidation>;
 
 interface RealEstateFormProps {}
 
 const RealEstateForm = ({}: RealEstateFormProps) => {
-  const [is_rental, set_is_rental] = useState<boolean>(false);
-  const [region, setRegion] = useState<IDropdownItem | null>(null);
-  const [city, setCity] = useState<ICity | null>(null);
-  const [agent, setAgent] = useState<IAgent | null>(null);
   const [showAgentModal, toggleShowAgentModal] = useToggle(false);
 
   const { blob: savedImage, clearImage, saveImage } = useLocalStorageImage();
+  const {
+    savedRegion: region,
+    saveRegion: setRegion,
+    saveCity: setCity,
+    saveAgent: setAgent,
+    savedCity: city,
+    savedAgent: agent,
+    isRental: is_rental,
+    saveIsRental: set_is_rental,
+  } = useDropdownStorage();
 
   const methods = useForm<FormFields>({
     resolver: zodResolver(RealEstateValidation),
@@ -53,6 +58,7 @@ const RealEstateForm = ({}: RealEstateFormProps) => {
 
   const cancel = () => {
     sessionStorage.clear();
+    localStorage.clear();
     reset();
     clearImage();
     navigate("/");

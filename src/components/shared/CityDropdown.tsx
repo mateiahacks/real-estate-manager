@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useMemo, useRef } from "react";
+import { useMemo, useRef } from "react";
 import useOutsideClick from "../../hooks/useOutsideClick";
 import { useToggle } from "../../hooks/useToggle";
 import { Dropdown } from "../ui";
@@ -10,7 +10,7 @@ import { cn } from "../../lib/utils";
 interface CityDropdownProps {
   city: ICity | null;
   region: IDropdownItem | null;
-  setCity: Dispatch<SetStateAction<ICity | null>>;
+  setCity: (city: ICity | null) => void;
   className?: string;
 }
 
@@ -29,7 +29,7 @@ const CityDropdown = ({
   const citiesToDisplay: ICity[] = useMemo(
     () =>
       data ? data.filter((_city: ICity) => _city.region_id === region?.id) : [],
-    [region]
+    [region, data]
   );
 
   const onSelect = (_city: ICity) => {
