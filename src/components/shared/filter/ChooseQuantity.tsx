@@ -23,7 +23,10 @@ const ChooseQuantity = ({ toggleIsOpen }: ChooseQuantityProps) => {
   };
 
   const onChange = (e: any) => {
-    if (!Number.isInteger(Number(e.target.value))) {
+    if (
+      !Number.isInteger(Number(e.target.value)) ||
+      e.target.value.includes(".")
+    ) {
       return;
     }
     setQuantity(e.target.value);
