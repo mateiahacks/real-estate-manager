@@ -15,15 +15,17 @@ function base64ToBlob(base64String: string): Blob {
 }
 
 // Hook to handle image saving and retrieval from LocalStorage
-export function useLocalStorageImage() {
+export function useLocalStorageImage(isModal: boolean = false) {
   const [blob, setBlob] = useState<Blob | null>(null); // Store the Blob
+
+  const name = isModal ? "savedModalImage" : "savedImage";
 
   // Save image to localStorage as Base64
   const saveImage = (file: File) => {
     const reader = new FileReader();
     reader.onloadend = () => {
       const base64Image = reader.result as string;
-      localStorage.setItem("savedImage", base64Image);
+      localStorage.setItem(name, base64Image);
       setBlob(base64ToBlob(base64Image));
     };
     reader.readAsDataURL(file); // Convert the file to a Base64 string
@@ -31,7 +33,7 @@ export function useLocalStorageImage() {
 
   // Load image from localStorage
   const loadImage = () => {
-    const savedImage = localStorage.getItem("savedImage");
+    const savedImage = localStorage.getItem(name);
     if (savedImage) {
       // Optionally, convert the Base64 back to a Blob object
       const blobFromBase64 = base64ToBlob(savedImage);
@@ -43,7 +45,7 @@ export function useLocalStorageImage() {
 
   // Clear image from localStorage
   const clearImage = () => {
-    localStorage.removeItem("savedImage");
+    localStorage.removeItem(name);
     setBlob(null);
   };
 

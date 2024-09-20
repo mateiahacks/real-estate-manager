@@ -8,6 +8,7 @@ import { formData } from "../../lib/utils";
 import Loader from "../shared/Loader";
 import { useQueryClient } from "@tanstack/react-query";
 import { QUERY_KEYS } from "../../lib/react-query/queryKeys";
+import { useLocalStorageImage } from "../../hooks/useLocalStorageImage";
 
 type FormFields = z.infer<typeof AgentValidation>;
 
@@ -24,6 +25,12 @@ const AgentForm = ({ toggleIsOpen }: AgentFormProps) => {
   const { handleSubmit } = methods;
 
   const { mutateAsync: createAgent, isPending: isCreating } = useCreateAgent();
+
+  const {
+    blob: savedImage,
+    clearImage,
+    saveImage,
+  } = useLocalStorageImage(true);
 
   const onSubmit: SubmitHandler<FormFields> = async (data: FormFields) => {
     if (data.avatar.length === 0 || data.avatar[0].size > 1048576) {
@@ -70,7 +77,14 @@ const AgentForm = ({ toggleIsOpen }: AgentFormProps) => {
               rule="მხოლოდ რიცხვები"
             />
           </div>
-          <ImageUpload name="avatar" label="ატვირთეთ ფოტო *" />
+          <ImageUpload
+            name="avatar"
+            label="ატვირთეთ ფოტო *"
+            saveImage={saveImage}
+            savedImage={savedImage}
+            clearImage={clearImage}
+            isModal={true}
+          />
         </div>
         <div className="flex flex-row-reverse gap-3 mt-5">
           <Button variant={"primary"} type="submit">

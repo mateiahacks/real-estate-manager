@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { cn } from "../../lib/utils";
 import { useFormContext } from "react-hook-form";
 import { ERROR_MESSAGE } from "../../lib/constants";
@@ -10,6 +10,7 @@ interface ImageUploadProps extends React.InputHTMLAttributes<HTMLInputElement> {
   saveImage: (image: File) => void;
   clearImage: () => void;
   savedImage?: Blob | null;
+  isModal?: boolean;
 }
 
 const ImageUpload = ({
@@ -19,6 +20,7 @@ const ImageUpload = ({
   saveImage,
   savedImage,
   clearImage,
+  isModal,
   ...props
 }: ImageUploadProps) => {
   const form = useFormContext();
@@ -44,6 +46,21 @@ const ImageUpload = ({
   const onUploadClick = () => {
     document.getElementById(name)?.click();
   };
+
+  useEffect(() => {
+    const handleBeforeUnload = () => {
+      if (isModal) clearImage();
+    };
+
+    // Add event listener for the `beforeunload` event
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    // Cleanup the event listener when component unmounts
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+      if (isModal) clearImage();
+    };
+  }, []);
 
   return (
     <div>
