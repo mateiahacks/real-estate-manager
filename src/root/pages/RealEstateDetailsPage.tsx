@@ -15,7 +15,11 @@ const RealEstateDetailsPage = () => {
   const { data: realEstates, isFetching: isFetchingEstates } =
     useGetRealEstates();
 
-  const { data: realEstate, isFetching: isFetchingEstate } = realEstateQuery;
+  const {
+    data: realEstate,
+    isFetching: isFetchingEstate,
+    isFetched,
+  } = realEstateQuery;
 
   const filteredEstates: IRealEstate[] = useMemo(
     () =>
@@ -28,6 +32,10 @@ const RealEstateDetailsPage = () => {
         : [],
     [id, realEstate, realEstates]
   );
+
+  if (isFetched && !realEstate) {
+    return <p>მონაცემი არ მოიძებნა</p>;
+  }
 
   return (
     <div className="flex flex-col gap-3 w-full relative px-16">
