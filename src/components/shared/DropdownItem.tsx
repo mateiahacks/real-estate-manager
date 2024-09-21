@@ -12,7 +12,7 @@ const DropdownItem = ({ children, onClick, className }: DropdownItemProps) => {
     <div
       onClick={onClick ? onClick : () => {}}
       className={cn(
-        "dropdown-item px-4 py-3 text-xs font-bold",
+        "dropdown-item px-4 py-3 text-xs font-bold hover:bg-gray-1",
         "w-full cursor-pointer border border-b-gray-2",
         className
       )}
